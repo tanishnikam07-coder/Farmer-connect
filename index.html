@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Farmer Connect</title>
+</head>
+<body>
+
+<h1>🌾 Farmer Connect</h1>
+
+<!-- Menu -->
+<h3>Select Option</h3>
+
+<select id="option">
+    <option value="market">Market Rates</option>
+    <option value="weather">Weather Forecast</option>
+    <option value="labour">Labour Details</option>
+</select>
+
+<input type="text" id="city" placeholder="Enter city (Nashik, Pune, Mumbai)">
+<button onclick="showData()">Submit</button>
+
+<h3>Result:</h3>
+<p id="output"></p>
+
+<script>
+function showData() {
+    let city = document.getElementById("city").value;
+    city = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+
+    let option = document.getElementById("option").value;
+    let output = "";
+
+    // Market Rates
+    let market = {
+        "Nashik": {"Wheat": 2350, "Onion": 1900, "Cotton": 6400, "Grapes": 4500},
+        "Pune": {"Wheat": 2400, "Onion": 1800, "Cotton": 6500, "Grapes": 4700},
+        "Mumbai": {"Wheat": 2450, "Onion": 2000, "Cotton": 6600, "Grapes": 4800}
+    };
+
+    // Weather
+    let weather = {
+        "Nashik": ["Today: 25°C Cloudy", "Tomorrow: 27°C Sunny", "Day After: 26°C Rainy"],
+        "Pune": ["Today: 28°C Sunny", "Tomorrow: 29°C Hot", "Day After: 27°C Cloudy"],
+        "Mumbai": ["Today: 30°C Humid", "Tomorrow: 31°C Rainy", "Day After: 29°C Cloudy"]
+    };
+
+    // Labour
+    let labour = {
+        "Nashik": {"Harvesting": "15 workers, ₹500", "Tractor Work": "5 workers, ₹700"},
+        "Pune": {"Harvesting": "12 workers, ₹550", "Tractor Work": "6 workers, ₹750"},
+        "Mumbai": {"Harvesting": "10 workers, ₹600", "Tractor Work": "4 workers, ₹800"}
+    };
+
+    if (option === "market") {
+        if (market[city]) {
+            for (let crop in market[city]) {
+                output += crop + ": ₹" + market[city][crop] + "<br>";
+            }
+        } else {
+            output = "Data not available";
+        }
+    }
+
+    else if (option === "weather") {
+        if (weather[city]) {
+            output = weather[city].join("<br>");
+        } else {
+            output = "Data not available";
+        }
+    }
+
+    else if (option === "labour") {
+        if (labour[city]) {
+            for (let work in labour[city]) {
+                output += work + " → " + labour[city][work] + "<br>";
+            }
+        } else {
+            output = "Data not available";
+        }
+    }
+
+    document.getElementById("output").innerHTML = output;
+}
+</script>
+
+</body>
+</html>8
