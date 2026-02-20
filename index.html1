@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Farmer Connect</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(135deg, #1d4350, #a43931);
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            padding: 20px;
+            background: black;
+            color: #00ffcc;
+        }
+
+        /* Tractor Animation */
+        .road {
+            width: 100%;
+            height: 180px;
+            background: #222;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tractor {
+            position: absolute;
+            bottom: 20px;
+            left: -150px;
+            font-size: 70px;
+            animation: move 6s linear infinite;
+        }
+
+        @keyframes move {
+            0% { left: -150px; }
+            100% { left: 100%; }
+        }
+
+        .box {
+            margin-top: 20px;
+        }
+
+        select, input {
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: #00ffcc;
+            color: black;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        #output {
+            margin-top: 20px;
+            font-size: 18px;
+            animation: fade 1s;
+        }
+
+        @keyframes fade {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h1>🚜 Farmer Connect</h1>
+
+<div class="road">
+    <div class="tractor">🚜</div>
+</div>
+
+<div class="box">
+
+    <h2>Select Option</h2>
+
+    <select id="choice">
+        <option value="1">Market Rates</option>
+        <option value="2">Weather Forecast</option>
+        <option value="3">Labour Details</option>
+    </select>
+
+    <br>
+
+    <input type="text" id="city" placeholder="Enter city (Nashik/Pune/Mumbai)">
+
+    <br>
+
+    <button onclick="getData()">Get Details</button>
+
+    <div id="output"></div>
+
+</div>
+
+<script>
+function getData() {
+
+    let choice = document.getElementById("choice").value;
+    let city = document.getElementById("city").value.toLowerCase();
+    let result = "";
+
+    // Market Data
+    let market = {
+        "nashik": {"Wheat": 2350, "Onion": 1900, "Cotton": 6400, "Grapes": 4500},
+        "pune": {"Wheat": 2400, "Onion": 1800, "Cotton": 6500, "Grapes": 4700},
+        "mumbai": {"Wheat": 2450, "Onion": 2000, "Cotton": 6600, "Grapes": 4800}
+    };
+
+    // Weather Data
+    let weather = {
+        "nashik": [["Today", "25°C", "Cloudy"],
+                   ["Tomorrow", "27°C", "Sunny"],
+                   ["Day After", "26°C", "Rainy"]],
+
+        "pune": [["Today", "28°C", "Sunny"],
+                 ["Tomorrow", "29°C", "Hot"],
+                 ["Day After", "27°C", "Cloudy"]],
+
+        "mumbai": [["Today", "30°C", "Humid"],
+                   ["Tomorrow", "31°C", "Rainy"],
+                   ["Day After", "29°C", "Cloudy"]]
+    };
+
+    // Labour Data
+    let labour = {
+        "nashik": {"Harvesting": [15, 500], "Tractor Work": [5, 700]},
+        "pune": {"Harvesting": [12, 550], "Tractor Work": [6, 750]},
+        "mumbai": {"Harvesting": [10, 600], "Tractor Work": [4, 800]}
+    };
+
+    if (!market[city]) {
+        result = "❌ City not found";
+    } else {
+
+        if (choice == "1") {
+            result = "<h3>📊 Market Rates</h3>";
+            for (let crop in market[city]) {
+                result += `🌾 ${crop}: ₹${market[city][crop]} <br>`;
+            }
+        }
+
+        else if (choice == "2") {
+            result = "<h3>🌦 Weather Forecast</h3>";
+            weather[city].forEach(day => {
+                result += `📅 ${day[0]} → ${day[1]}, ${day[2]} <br>`;
+            });
+        }
+
+        else if (choice == "3") {
+            result = "<h3>👷 Labour Details</h3>";
+            for (let work in labour[city]) {
+                let data = labour[city][work];
+                result += `🔧 ${work} → Workers: ${data[0]}, Wage: ₹${data[1]} <br>`;
+            }
+        }
+    }
+
+    document.getElementById("output").innerHTML = result;
+}
+</script>
+
+</body>
+
+</html>
