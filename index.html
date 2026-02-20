@@ -1,139 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmer Connect</title>
+    <title>Farmer Connect</title>
+    <style>
+        body {
+            margin: 0;
+            background: #87CEEB;
+            font-family: Arial;
+            text-align: center;
+        }
 
-<style>
-body {
-    font-family: Arial;
-    margin: 0;
-    background: #e8f5e9;
-    text-align: center;
-}
+        h1 {
+            background: green;
+            color: white;
+            padding: 15px;
+        }
 
-/* Header */
-header {
-    background: green;
-    color: white;
-    padding: 15px;
-    font-size: 24px;
-    animation: slideDown 1s ease;
-}
+        .road {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: #555;
+            overflow: hidden;
+        }
 
-/* Animation */
-@keyframes slideDown {
-    from {transform: translateY(-50px); opacity: 0;}
-    to {transform: translateY(0); opacity: 1;}
-}
+        .tractor {
+            position: absolute;
+            bottom: 20px;
+            left: -200px;
+            font-size: 60px;
+            animation: moveTractor 6s linear infinite;
+        }
 
-/* Buttons */
-button {
-    padding: 12px 20px;
-    margin: 10px;
-    border: none;
-    background: green;
-    color: white;
-    font-size: 16px;
-    border-radius: 8px;
-    cursor: pointer;
-}
+        @keyframes moveTractor {
+            0% { left: -200px; }
+            100% { left: 100%; }
+        }
 
-button:hover {
-    background: darkgreen;
-}
+        .content {
+            padding: 20px;
+        }
 
-/* Box */
-.container {
-    padding: 20px;
-}
+        button {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-.box {
-    background: white;
-    padding: 15px;
-    margin-top: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px gray;
-    animation: fadeIn 1s;
-}
-
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-</style>
-
+        button:hover {
+            background: darkgreen;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>🌾 Farmer Connect</header>
+<h1>🚜 Farmer Connect</h1>
 
-<div class="container">
+<div class="road">
+    <div class="tractor">🚜</div>
+</div>
 
-    <input type="text" id="city" placeholder="Enter City (Nashik/Pune/Mumbai)">
-    <br><br>
+<div class="content">
+    <h2>Welcome Farmer 👨‍🌾</h2>
+    <p>Check Market Rates, Weather & Labour Info</p>
 
-    <button onclick="market()">Market Rates</button>
-    <button onclick="weather()">Weather</button>
-    <button onclick="labour()">Labour</button>
+    <button onclick="showMessage()">Click Me</button>
 
-    <div id="output" class="box"></div>
-
+    <p id="msg"></p>
 </div>
 
 <script>
-function market() {
-    let city = document.getElementById("city").value;
-
-    let data = {
-        "Nashik": {Wheat:2350, Onion:1900, Cotton:6400, Grapes:4500},
-        "Pune": {Wheat:2400, Onion:1800, Cotton:6500, Grapes:4700},
-        "Mumbai": {Wheat:2450, Onion:2000, Cotton:6600, Grapes:4800}
-    };
-
-    if(data[city]){
-        let text = "<h3>Market Rates - " + city + "</h3>";
-        for(let crop in data[city]){
-            text += crop + ": ₹" + data[city][crop] + "<br>";
-        }
-        document.getElementById("output").innerHTML = text;
-    } else {
-        document.getElementById("output").innerHTML = "Data not available";
-    }
+function showMessage() {
+    document.getElementById("msg").innerHTML =
+        "Today's Weather: Sunny ☀️ <br> Wheat Price: ₹2300 <br> Tractor Labour: ₹500/hr";
 }
+</script>
 
-function weather() {
-    let city = document.getElementById("city").value;
-
-    let data = {
-        "Nashik": ["Today: 25°C Cloudy", "Tomorrow: 27°C Sunny"],
-        "Pune": ["Today: 28°C Sunny", "Tomorrow: 29°C Hot"],
-        "Mumbai": ["Today: 30°C Humid", "Tomorrow: 31°C Rainy"]
-    };
-
-    if(data[city]){
-        let text = "<h3>Weather - " + city + "</h3>";
-        data[city].forEach(day => {
-            text += day + "<br>";
-        });
-        document.getElementById("output").innerHTML = text;
-    } else {
-        document.getElementById("output").innerHTML = "Data not available";
-    }
-}
-
-function labour() {
-    let city = document.getElementById("city").value;
-
-    let data = {
-        "Nashik": {"Harvesting":"15 workers ₹500", "Tractor":"5 workers ₹700"},
-        "Pune": {"Harvesting":"12 workers ₹550", "Tractor":"6 workers ₹750"},
-        "Mumbai": {"Harvesting":"10 workers ₹600", "Tractor":"4 workers ₹800"}
-    };
-
-    if(data[city]){
-        let text = "<h3>Labour - " + city + "</h3>";
-        for(let work in data[city]){
-            text += work + ":
+</body>
+</html>
