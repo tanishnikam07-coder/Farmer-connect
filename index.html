@@ -2,86 +2,99 @@
 <html>
 <head>
     <title>Farmer Connect</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: linear-gradient(to right, #a8e063, #56ab2f);
+            color: white;
+        }
+
+        h1 {
+            margin-top: 30px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Button Style */
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            background-color: #2c3e50;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #f39c12;
+            transform: scale(1.1);
+        }
+
+        /* Card Style */
+        .card {
+            background: white;
+            color: black;
+            margin: 20px auto;
+            padding: 15px;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            animation: slideUp 1s ease-in-out;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Tractor Emoji Animation */
+        .tractor {
+            font-size: 40px;
+            animation: moveTractor 5s linear infinite;
+            position: relative;
+        }
+
+        @keyframes moveTractor {
+            from { left: -100px; }
+            to { left: 100%; }
+        }
+    </style>
 </head>
+
 <body>
 
-<h1>🌾 Farmer Connect</h1>
+    <h1>🌾 Farmer Connect</h1>
 
-<!-- Menu -->
-<h3>Select Option</h3>
+    <!-- Tractor Animation -->
+    <div class="tractor">🚜</div>
 
-<select id="option">
-    <option value="market">Market Rates</option>
-    <option value="weather">Weather Forecast</option>
-    <option value="labour">Labour Details</option>
-</select>
+    <br>
 
-<input type="text" id="city" placeholder="Enter city (Nashik, Pune, Mumbai)">
-<button onclick="showData()">Submit</button>
+    <button onclick="showMarket()">Market Rates</button>
+    <button onclick="showWeather()">Weather</button>
+    <button onclick="showLabour()">Labour</button>
 
-<h3>Result:</h3>
-<p id="output"></p>
+    <div id="output"></div>
 
-<script>
-function showData() {
-    let city = document.getElementById("city").value;
-    city = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
-
-    let option = document.getElementById("option").value;
-    let output = "";
-
-    // Market Rates
-    let market = {
-        "Nashik": {"Wheat": 2350, "Onion": 1900, "Cotton": 6400, "Grapes": 4500},
-        "Pune": {"Wheat": 2400, "Onion": 1800, "Cotton": 6500, "Grapes": 4700},
-        "Mumbai": {"Wheat": 2450, "Onion": 2000, "Cotton": 6600, "Grapes": 4800}
-    };
-
-    // Weather
-    let weather = {
-        "Nashik": ["Today: 25°C Cloudy", "Tomorrow: 27°C Sunny", "Day After: 26°C Rainy"],
-        "Pune": ["Today: 28°C Sunny", "Tomorrow: 29°C Hot", "Day After: 27°C Cloudy"],
-        "Mumbai": ["Today: 30°C Humid", "Tomorrow: 31°C Rainy", "Day After: 29°C Cloudy"]
-    };
-
-    // Labour
-    let labour = {
-        "Nashik": {"Harvesting": "15 workers, ₹500", "Tractor Work": "5 workers, ₹700"},
-        "Pune": {"Harvesting": "12 workers, ₹550", "Tractor Work": "6 workers, ₹750"},
-        "Mumbai": {"Harvesting": "10 workers, ₹600", "Tractor Work": "4 workers, ₹800"}
-    };
-
-    if (option === "market") {
-        if (market[city]) {
-            for (let crop in market[city]) {
-                output += crop + ": ₹" + market[city][crop] + "<br>";
-            }
-        } else {
-            output = "Data not available";
-        }
-    }
-
-    else if (option === "weather") {
-        if (weather[city]) {
-            output = weather[city].join("<br>");
-        } else {
-            output = "Data not available";
-        }
-    }
-
-    else if (option === "labour") {
-        if (labour[city]) {
-            for (let work in labour[city]) {
-                output += work + " → " + labour[city][work] + "<br>";
-            }
-        } else {
-            output = "Data not available";
-        }
-    }
-
-    document.getElementById("output").innerHTML = output;
-}
-</script>
-
-</body>
-</html>8
+    <script>
+        function showMarket() {
+            document.getElementById("output").innerHTML =
+                `<div class="card">
+                    <h3>Market Rates (Nashik)</h3>
+                    Wheat: ₹2350 <br>
