@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Farmer Connect</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #eaf7ea;
+}
+
+header {
+    background: green;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.container {
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+}
+
+button {
+    padding: 10px;
+    background: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input {
+    padding: 10px;
+    width: 200px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌾 Farmer Connect</h1>
+    <p>Smart Farming Solution</p>
+</header>
+
+<div class="container">
+
+    <!-- City Input -->
+    <div class="card">
+        <h2>Enter City</h2>
+        <input type="text" id="city" placeholder="Enter city name">
+        <button onclick="showData()">Check Details</button>
+    </div>
+
+    <!-- Output -->
+    <div class="card" id="output">
+        <h2>Details</h2>
+        <p>Enter city to see data</p>
+    </div>
+
+</div>
+
+<script>
+
+function showData() {
+    let city = document.getElementById("city").value;
+
+    let data = {
+
+        "nashik": {
+            market: "Wheat ₹2350, Onion ₹1900",
+            weather: "Sunny 32°C",
+            labour: "Tractor ₹500/hr, Harvest ₹300/day"
+        },
+
+        "pune": {
+            market: "Wheat ₹2400, Onion ₹1800",
+            weather: "Cloudy 28°C",
+            labour: "Tractor ₹600/hr,
